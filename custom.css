@@ -1,0 +1,222 @@
+:root {
+  --ak-accent: #3a3a40;
+  --pf-global--primary-color--100: #3a3a40;
+  --pf-global--primary-color--200: #3a3a40;
+  --pf-global--primary-color--400: var(--ak-accent);
+  --pf-c-form-control--BorderRadius: 20px;
+  --ak-dark-background: rgba(30, 30, 30, 0.6);
+}
+
+/*** 1. Global Background (Mobile & Desktop) ***/
+body,
+.pf-c-login {
+  background-image: url("https://i.imgur.com/j38cKOQ.gif") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-attachment: fixed !important;
+  background-color: #000 !important;
+}
+
+/* Force display background image filter/layer on mobile */
+.pf-c-background-image {
+  display: block !important;
+  --pf-c-background-image--Filter: none;
+}
+
+/*** 2. Login Card & Glassmorphism ***/
+.pf-c-login__main {
+  background-color: transparent !important;
+  backdrop-filter: blur(8px);
+  border: 2px solid #807e82;
+  border-radius: 25px !important;
+  animation: pulse-border 3s infinite;
+  z-index: 1;
+}
+
+/* Pulsating glow animation for the login card */
+@keyframes pulse-border {
+  0%,
+  100% {
+    box-shadow:
+      0 0 10px #807e82,
+      0 0 15px #807e82;
+  }
+  50% {
+    box-shadow:
+      0 0 15px #807e82,
+      0 0 25px #807e82;
+  }
+}
+
+/* Sidebar and footer transparency settings */
+.pf-c-page__sidebar,
+.pf-c-login__main-footer-band,
+.pf-c-login__footer .pf-c-list {
+  background-color: transparent !important;
+  backdrop-filter: blur(10px);
+}
+
+/*** 3. Unified Button Styles (Glow & Layout) ***/
+/* Remove default PatternFly border-after elements */
+.pf-c-button::after {
+  display: none !important;
+}
+
+.pf-c-button.pf-m-primary,
+.pf-c-button.pf-m-secondary,
+.pf-c-button.pf-m-danger,
+.pf-c-button.pf-m-link,
+.pf-c-button.pf-m-block {
+  border-radius: 20px !important;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  padding: 8px 24px !important;
+  display: inline-flex !important;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  min-width: 100px;
+  border: 2px solid #807e82 !important;
+  background-clip: padding-box;
+}
+
+/* Fix: Resolve duplicated Admin Interface buttons across breakpoints */
+.pf-u-display-none,
+.pf-u-display-none-on-md {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  /* Hide mobile-specific Admin button on desktop */
+  a[href$="/admin/"].pf-u-display-block:not(.pf-u-display-block-on-md) {
+    display: none !important;
+  }
+}
+
+/* Login screen button layout */
+.pf-c-login__main .pf-c-button {
+  width: 85% !important;
+  margin: 10px auto !important;
+  display: flex !important;
+}
+
+/* Header button layout adjustments */
+.pf-c-page__header .pf-c-button {
+  width: auto !important;
+  min-width: 0 !important;
+  padding: 4px 16px !important;
+}
+
+/* --- Specific Button Color Schemes --- */
+
+/* Primary: Dark Gray with White Glow */
+.pf-c-button.pf-m-primary {
+  background-color: #3a3a40 !important;
+  color: white !important;
+  border-color: #555 !important;
+}
+.pf-c-button.pf-m-primary:hover {
+  border-color: #ffffff !important;
+  box-shadow: 0 0 12px 2px rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Secondary: Cyber Blue Theme */
+.pf-c-button.pf-m-secondary {
+  background-color: rgba(0, 123, 255, 0.1) !important;
+  border-color: #007bff !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(4px);
+}
+.pf-c-button.pf-m-secondary:hover {
+  border-color: #80bdff !important;
+  box-shadow: 0 0 15px 3px rgba(0, 123, 255, 0.6) !important;
+}
+
+/* Danger: Warning Red Theme */
+.pf-c-button.pf-m-danger {
+  background-color: rgba(163, 0, 0, 0.2) !important;
+  border-color: #a30000 !important;
+  color: white !important;
+}
+.pf-c-button.pf-m-danger:hover {
+  border-color: #ff4d4d !important;
+  box-shadow: 0 0 15px 3px rgba(163, 0, 0, 0.6) !important;
+}
+
+/* Global hover transition */
+.pf-c-button:hover {
+  transform: translateY(-1px);
+  opacity: 1 !important;
+}
+
+/*** 4. Navigation & Active States (Admin Interface) ***/
+.pf-c-nav__list .pf-c-nav__item .pf-c-nav__link.pf-m-current,
+.pf-c-nav__list .pf-c-nav__item.pf-m-current > .pf-c-nav__link,
+.pf-c-nav__link[aria-current="page"] {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  font-weight: bold !important;
+}
+a,
+.pf-c-nav__link,
+.pf-c-form__label-text {
+  color: #b7b7b7;
+}
+
+/*** 5. Form Controls & UI Elements ***/
+.pf-c-form-control {
+  border-radius: 20px !important;
+  border: 2px solid #3a3a40 !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  color: white !important;
+}
+
+/*** 6. Application Cards (User Library Glow) ***/
+/* Target both the custom element and PatternFly card classes */
+ak-application-card,
+.pf-c-card.pf-m-compact {
+  border-radius: 20px !important;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 30, 30, 0.3) 0%,
+    rgba(15, 15, 15, 0.3) 100%
+  ) !important;
+  backdrop-filter: blur(7px);
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+
+  /* Animated glow for individual app cards */
+  box-shadow: 0 0 12px rgba(128, 126, 130, 0.5) !important;
+  animation: pulse-border-card 3s infinite !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Hover state for application cards */
+ak-application-card:hover,
+.pf-c-card.pf-m-compact:hover {
+  border-color: #007bff !important;
+  box-shadow: 0 0 20px rgba(0, 123, 255, 0.6) !important;
+  transform: translateY(-3px);
+}
+
+@keyframes pulse-border-card {
+  0%,
+  100% {
+    box-shadow: 0 0 12px rgba(128, 126, 130, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.5);
+  }
+}
+
+/*** 7. Mobile Responsiveness ***/
+@media (max-width: 991px) {
+  .pf-c-login__main {
+    width: 92% !important;
+    margin: 20px auto !important;
+  }
+  .pf-c-login__main .pf-c-button {
+    width: 100% !important;
+  }
+}
