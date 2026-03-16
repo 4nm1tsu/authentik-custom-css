@@ -17,47 +17,59 @@ body,
   background-color: #000 !important;
 }
 
-/* Force display background image filter/layer on mobile */
 .pf-c-background-image {
   display: block !important;
   --pf-c-background-image--Filter: none;
 }
 
-/*** 2. Login Card & Glassmorphism ***/
+/*** 2. Artifact & Clipping Fix (Card Layout) ***/
+ak-stage-identification,
+ak-flow-card {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  overflow: visible !important;
+}
+
 .pf-c-login__main {
   background-color: transparent !important;
-  backdrop-filter: blur(8px);
-  border: 2px solid #807e82;
+  backdrop-filter: blur(10px);
+  border: none !important;
+  outline: none !important;
   border-radius: 25px !important;
   animation: pulse-border 3s infinite;
   z-index: 1;
+  overflow: visible !important;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
-/* Pulsating glow animation for the login card */
+.pf-c-login__main-body,
+.pf-c-login__main-header,
+.pf-c-login__main-footer,
+.pf-c-form,
+.pf-c-form__group {
+  background: transparent !important;
+  border: none !important;
+  overflow: visible !important;
+}
+
 @keyframes pulse-border {
   0%,
   100% {
     box-shadow:
-      0 0 10px #807e82,
-      0 0 15px #807e82;
+      0 0 0 1.5px rgba(128, 126, 130, 0.7),
+      0 0 12px rgba(128, 126, 130, 0.3);
   }
   50% {
     box-shadow:
-      0 0 15px #807e82,
-      0 0 25px #807e82;
+      0 0 0 2px rgba(255, 255, 255, 0.8),
+      0 0 22px rgba(255, 255, 255, 0.5);
   }
 }
 
-/* Sidebar and footer transparency settings */
-.pf-c-page__sidebar,
-.pf-c-login__main-footer-band,
-.pf-c-login__footer .pf-c-list {
-  background-color: transparent !important;
-  backdrop-filter: blur(10px);
-}
-
-/*** 3. Unified Button Styles (Glow & Layout) ***/
-/* Remove default PatternFly border-after elements */
+/*** 3. Unified Button Styles (Anti-Clipping & Precise Glow) ***/
 .pf-c-button::after {
   display: none !important;
 }
@@ -76,42 +88,40 @@ body,
   align-items: center;
   font-size: 14px;
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease-in-out;
   min-width: 100px;
   border: 2px solid #807e82 !important;
   background-clip: padding-box;
+  margin: 12px auto !important;
+  backface-visibility: hidden;
 }
 
-/* Fix: Resolve duplicated Admin Interface buttons across breakpoints */
+/* Duplicated Admin Interface Fix */
 .pf-u-display-none,
-.pf-u-display-none-on-md {
+.pf-u-display-none-on-md,
+.pf-u-display-none-on-lg {
   display: none !important;
 }
-
 @media (min-width: 768px) {
-  /* Hide mobile-specific Admin button on desktop */
-  a[href$="/admin/"].pf-u-display-block:not(.pf-u-display-block-on-md) {
+  .pf-u-display-block:not(.pf-u-display-block-on-md) {
     display: none !important;
   }
 }
 
-/* Login screen button layout */
 .pf-c-login__main .pf-c-button {
-  width: 85% !important;
-  margin: 10px auto !important;
+  width: 70% !important;
   display: flex !important;
 }
 
-/* Header button layout adjustments */
-.pf-c-page__header .pf-c-button {
-  width: auto !important;
-  min-width: 0 !important;
-  padding: 4px 16px !important;
+.pf-c-button:hover {
+  transform: scale(1.05) !important;
+  opacity: 1 !important;
+  z-index: 999 !important;
 }
 
-/* --- Specific Button Color Schemes --- */
+/* --- Specific Button Colors --- */
 
-/* Primary: Dark Gray with White Glow */
+/* Primary (Login): White Glow */
 .pf-c-button.pf-m-primary {
   background-color: #3a3a40 !important;
   color: white !important;
@@ -119,10 +129,10 @@ body,
 }
 .pf-c-button.pf-m-primary:hover {
   border-color: #ffffff !important;
-  box-shadow: 0 0 12px 2px rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.5) !important;
 }
 
-/* Secondary: Cyber Blue Theme */
+/* Secondary (Blue): Cyber Blue Glow (FIXED: Now glows BLUE instead of white) */
 .pf-c-button.pf-m-secondary {
   background-color: rgba(0, 123, 255, 0.1) !important;
   border-color: #007bff !important;
@@ -130,11 +140,11 @@ body,
   backdrop-filter: blur(4px);
 }
 .pf-c-button.pf-m-secondary:hover {
-  border-color: #80bdff !important;
-  box-shadow: 0 0 15px 3px rgba(0, 123, 255, 0.6) !important;
+  border-color: #00fbff !important; /* Cyan-blue border on hover */
+  box-shadow: 0 0 18px 5px rgba(0, 123, 255, 0.8) !important;
 }
 
-/* Danger: Warning Red Theme */
+/* Danger (Delete): Red Glow */
 .pf-c-button.pf-m-danger {
   background-color: rgba(163, 0, 0, 0.2) !important;
   border-color: #a30000 !important;
@@ -142,18 +152,11 @@ body,
 }
 .pf-c-button.pf-m-danger:hover {
   border-color: #ff4d4d !important;
-  box-shadow: 0 0 15px 3px rgba(163, 0, 0, 0.6) !important;
+  box-shadow: 0 0 20px 5px rgba(163, 0, 0, 0.7) !important;
 }
 
-/* Global hover transition */
-.pf-c-button:hover {
-  transform: translateY(-1px);
-  opacity: 1 !important;
-}
-
-/*** 4. Navigation & Active States (Admin Interface) ***/
+/*** 4. Navigation & UI Elements ***/
 .pf-c-nav__list .pf-c-nav__item .pf-c-nav__link.pf-m-current,
-.pf-c-nav__list .pf-c-nav__item.pf-m-current > .pf-c-nav__link,
 .pf-c-nav__link[aria-current="page"] {
   color: #ffffff !important;
   background-color: rgba(255, 255, 255, 0.2) !important;
@@ -164,8 +167,6 @@ a,
 .pf-c-form__label-text {
   color: #b7b7b7;
 }
-
-/*** 5. Form Controls & UI Elements ***/
 .pf-c-form-control {
   border-radius: 20px !important;
   border: 2px solid #3a3a40 !important;
@@ -173,8 +174,7 @@ a,
   color: white !important;
 }
 
-/*** 6. Application Cards (User Library Glow) ***/
-/* Target both the custom element and PatternFly card classes */
+/*** 5. Application Cards (Blue Glow) ***/
 ak-application-card,
 .pf-c-card.pf-m-compact {
   border-radius: 20px !important;
@@ -183,40 +183,29 @@ ak-application-card,
     rgba(30, 30, 30, 0.3) 0%,
     rgba(15, 15, 15, 0.3) 100%
   ) !important;
-  backdrop-filter: blur(7px);
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-
-  /* Animated glow for individual app cards */
-  box-shadow: 0 0 12px rgba(128, 126, 130, 0.5) !important;
-  animation: pulse-border-card 3s infinite !important;
-  transition: all 0.3s ease !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 12px rgba(128, 126, 130, 0.4) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
-/* Hover state for application cards */
 ak-application-card:hover,
 .pf-c-card.pf-m-compact:hover {
+  transform: scale(1.04) translateY(-5px) !important;
   border-color: #007bff !important;
-  box-shadow: 0 0 20px rgba(0, 123, 255, 0.6) !important;
-  transform: translateY(-3px);
+  box-shadow:
+    0 10px 30px -5px rgba(0, 123, 255, 0.7),
+    0 0 15px rgba(0, 123, 255, 0.4) !important;
+  z-index: 10;
 }
 
-@keyframes pulse-border-card {
-  0%,
-  100% {
-    box-shadow: 0 0 12px rgba(128, 126, 130, 0.4);
-  }
-  50% {
-    box-shadow: 0 0 18px rgba(255, 255, 255, 0.5);
-  }
-}
-
-/*** 7. Mobile Responsiveness ***/
+/*** 6. Mobile ***/
 @media (max-width: 991px) {
   .pf-c-login__main {
     width: 92% !important;
     margin: 20px auto !important;
   }
   .pf-c-login__main .pf-c-button {
-    width: 100% !important;
+    width: 80% !important;
   }
 }
