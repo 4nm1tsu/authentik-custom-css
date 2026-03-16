@@ -22,14 +22,19 @@ body,
   --pf-c-background-image--Filter: none;
 }
 
-/*** 2. Artifact & Clipping Fix (Card Layout) ***/
+/*** 2. Artifact & Clipping Fix (ボタンの左右欠け防止を徹底) ***/
 ak-stage-identification,
-ak-flow-card {
+ak-flow-card,
+.pf-c-login__main-body,
+.pf-c-login__main-header,
+.pf-c-login__main-footer,
+.pf-c-form,
+.pf-c-form__group {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   outline: none !important;
-  overflow: visible !important;
+  overflow: visible !important; /* ボタンのGlowやScaleが欠けるのを防ぐ */
 }
 
 .pf-c-login__main {
@@ -39,21 +44,18 @@ ak-flow-card {
   outline: none !important;
   border-radius: 25px !important;
   z-index: 1;
-  overflow: visible !important;
-  /* Anti-floating cursor fixes */
+  overflow: visible !important; /* ここも欠け防止に必須 */
   position: relative;
   isolation: isolate;
   backface-visibility: hidden;
   transform: translateZ(0);
 }
 
-/* ★ FIX: High-stability pulse animation using pseudo-element ★ */
 .pf-c-login__main::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 25px;
-  /* Static shadow size to keep rendering stable on iOS */
   box-shadow:
     0 0 0 2px rgba(255, 255, 255, 0.5),
     0 0 20px rgba(255, 255, 255, 0.4);
@@ -73,17 +75,7 @@ ak-flow-card {
   }
 }
 
-.pf-c-login__main-body,
-.pf-c-login__main-header,
-.pf-c-login__main-footer,
-.pf-c-form,
-.pf-c-form__group {
-  background: transparent !important;
-  border: none !important;
-  overflow: visible !important;
-}
-
-/*** 3. Unified Button Styles (Anti-Clipping & Precise Glow) ***/
+/*** 3. Unified Button Styles ***/
 .pf-c-button::after {
   display: none !important;
 }
@@ -111,7 +103,6 @@ ak-flow-card {
   transform: translateZ(0);
 }
 
-/* Duplicated Admin Interface Fix */
 .pf-u-display-none,
 .pf-u-display-none-on-md,
 .pf-u-display-none-on-lg {
@@ -134,9 +125,7 @@ ak-flow-card {
   z-index: 999 !important;
 }
 
-/* --- Specific Button Colors --- */
-
-/* Primary (Login): White Glow */
+/* Primary */
 .pf-c-button.pf-m-primary {
   background-color: #3a3a40 !important;
   color: white !important;
@@ -147,7 +136,7 @@ ak-flow-card {
   box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.5) !important;
 }
 
-/* Secondary (Blue): Cyber Blue Glow */
+/* Secondary */
 .pf-c-button.pf-m-secondary {
   background-color: rgba(0, 123, 255, 0.1) !important;
   border-color: #007bff !important;
@@ -159,7 +148,7 @@ ak-flow-card {
   box-shadow: 0 0 18px 5px rgba(0, 123, 255, 0.8) !important;
 }
 
-/* Danger (Delete): Red Glow */
+/* Danger */
 .pf-c-button.pf-m-danger {
   background-color: rgba(163, 0, 0, 0.2) !important;
   border-color: #a30000 !important;
@@ -187,11 +176,10 @@ a,
   border: 2px solid #3a3a40 !important;
   background-color: rgba(0, 0, 0, 0.4) !important;
   color: white !important;
-  /* Stabilize text input rendering */
   transform: translateZ(0);
 }
 
-/*** 5. Application Cards (Blue Glow) ***/
+/*** 5. Application Cards ***/
 ak-application-card,
 .pf-c-card.pf-m-compact {
   border-radius: 20px !important;
@@ -205,6 +193,7 @@ ak-application-card,
   box-shadow: 0 0 12px rgba(128, 126, 130, 0.4) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
   transform: translateZ(0);
+  overflow: visible !important; /* カードのホバー欠け防止 */
 }
 
 ak-application-card:hover,
@@ -226,4 +215,41 @@ ak-application-card:hover,
   .pf-c-login__main .pf-c-button {
     width: 80% !important;
   }
+}
+
+/*** 7. ヘッダー＆アバターの調整（縦ズレ・左右の隙間） ***/
+/* 親要素（ヘッダー全体）で垂直中央揃えを強制 */
+.pf-c-page__header-tools {
+  display: flex !important;
+  align-items: center !important;
+  overflow: visible !important;
+}
+
+/* ツールグループも中央揃えを維持 */
+.pf-c-page__header-tools-group {
+  display: flex !important;
+  align-items: center !important;
+  overflow: visible !important;
+}
+
+/* アバター自体の配置と左右の隙間（間が空くよう調整） */
+.pf-c-page__header-tools-item.pf-c-avatar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-left: 12px !important; /* 左側の隙間 */
+  margin-right: 12px !important; /* 右側の隙間 */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* アバター画像 */
+.pf-c-avatar img {
+  display: block !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  width: 36px !important;
+  height: 36px !important;
+  object-fit: cover !important;
 }
