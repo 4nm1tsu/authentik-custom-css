@@ -5,6 +5,12 @@
   --pf-global--primary-color--400: var(--ak-accent);
   --pf-c-form-control--BorderRadius: 20px;
   --ak-dark-background: rgba(30, 30, 30, 0.6);
+
+  /* Force global text colors to light mode (white text) */
+  --pf-global--Color--100: #ffffff !important;
+  --pf-global--Color--200: #e0e0e0 !important;
+  --pf-global--Color--dark-100: #ffffff !important;
+  --pf-global--Color--dark-200: #e0e0e0 !important;
 }
 
 /*** 1. Global Background (Mobile & Desktop) ***/
@@ -22,7 +28,7 @@ body,
   --pf-c-background-image--Filter: none;
 }
 
-/*** 2. Artifact & Clipping Fix (ボタンの左右欠け防止を徹底) ***/
+/*** 2. Artifact & Clipping Fix ***/
 ak-stage-identification,
 ak-flow-card,
 .pf-c-login__main-body,
@@ -34,7 +40,7 @@ ak-flow-card,
   border: none !important;
   box-shadow: none !important;
   outline: none !important;
-  overflow: visible !important; /* ボタンのGlowやScaleが欠けるのを防ぐ */
+  overflow: visible !important;
 }
 
 .pf-c-login__main {
@@ -44,7 +50,7 @@ ak-flow-card,
   outline: none !important;
   border-radius: 25px !important;
   z-index: 1;
-  overflow: visible !important; /* ここも欠け防止に必須 */
+  overflow: visible !important;
   position: relative;
   isolation: isolate;
   backface-visibility: hidden;
@@ -169,7 +175,7 @@ ak-flow-card,
 a,
 .pf-c-nav__link,
 .pf-c-form__label-text {
-  color: #b7b7b7;
+  color: #b7b7b7 !important;
 }
 .pf-c-form-control {
   border-radius: 20px !important;
@@ -193,7 +199,7 @@ ak-application-card,
   box-shadow: 0 0 12px rgba(128, 126, 130, 0.4) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
   transform: translateZ(0);
-  overflow: visible !important; /* カードのホバー欠け防止 */
+  overflow: visible !important;
 }
 
 ak-application-card:hover,
@@ -217,34 +223,27 @@ ak-application-card:hover,
   }
 }
 
-/*** 7. ヘッダー＆アバターの調整（縦ズレ・左右の隙間） ***/
-/* 親要素（ヘッダー全体）で垂直中央揃えを強制 */
+/*** 7. ヘッダー＆アバターの調整 ***/
 .pf-c-page__header-tools {
   display: flex !important;
   align-items: center !important;
   overflow: visible !important;
 }
-
-/* ツールグループも中央揃えを維持 */
 .pf-c-page__header-tools-group {
   display: flex !important;
   align-items: center !important;
   overflow: visible !important;
 }
-
-/* アバター自体の配置と左右の隙間（間が空くよう調整） */
 .pf-c-page__header-tools-item.pf-c-avatar {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  margin-left: 12px !important; /* 左側の隙間 */
-  margin-right: 12px !important; /* 右側の隙間 */
+  margin-left: 12px !important;
+  margin-right: 12px !important;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
 }
-
-/* アバター画像 */
 .pf-c-avatar img {
   display: block !important;
   border-radius: 50% !important;
@@ -252,4 +251,41 @@ ak-application-card:hover,
   width: 36px !important;
   height: 36px !important;
   object-fit: cover !important;
+}
+
+/*** 8. ダークモード用テキスト＆エラーメッセージ（アラート）の最適化 ***/
+/* 見出しやタイトルの白化 */
+.pf-c-title,
+.pf-c-login__main-header-desc {
+  color: #ffffff !important;
+}
+
+/* 権限エラーなどのアラートボックスを透過ダーク＆白文字化 */
+.pf-c-alert {
+  background-color: rgba(
+    20,
+    20,
+    20,
+    0.7
+  ) !important; /* 背景に溶け込む半透明の黒 */
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+.pf-c-alert__title,
+.pf-c-alert__description {
+  color: #ffffff !important;
+}
+
+/* 危険(Danger)エラーのアイコンと上部線は目立たせる */
+.pf-c-alert.pf-m-danger {
+  border-top-color: #ff4d4d !important;
+}
+.pf-c-alert.pf-m-danger .pf-c-alert__icon {
+  color: #ff4d4d !important;
+}
+
+/* 入力フォーム下の細かいエラーテキスト（暗い背景でも読める明るい赤） */
+.pf-c-form__helper-text.pf-m-error {
+  color: #ff9999 !important;
 }
