@@ -38,11 +38,39 @@ ak-flow-card {
   border: none !important;
   outline: none !important;
   border-radius: 25px !important;
-  animation: pulse-border 3s infinite;
   z-index: 1;
   overflow: visible !important;
+  /* Anti-floating cursor fixes */
+  position: relative;
+  isolation: isolate;
   backface-visibility: hidden;
   transform: translateZ(0);
+}
+
+/* ★ FIX: High-stability pulse animation using pseudo-element ★ */
+.pf-c-login__main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 25px;
+  /* Static shadow size to keep rendering stable on iOS */
+  box-shadow:
+    0 0 0 2px rgba(255, 255, 255, 0.5),
+    0 0 20px rgba(255, 255, 255, 0.4);
+  animation: stable-pulse 3s infinite;
+  z-index: -1;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+@keyframes stable-pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .pf-c-login__main-body,
@@ -53,20 +81,6 @@ ak-flow-card {
   background: transparent !important;
   border: none !important;
   overflow: visible !important;
-}
-
-@keyframes pulse-border {
-  0%,
-  100% {
-    box-shadow:
-      0 0 0 1.5px rgba(128, 126, 130, 0.7),
-      0 0 12px rgba(128, 126, 130, 0.3);
-  }
-  50% {
-    box-shadow:
-      0 0 0 2px rgba(255, 255, 255, 0.8),
-      0 0 22px rgba(255, 255, 255, 0.5);
-  }
 }
 
 /*** 3. Unified Button Styles (Anti-Clipping & Precise Glow) ***/
@@ -94,6 +108,7 @@ ak-flow-card {
   background-clip: padding-box;
   margin: 12px auto !important;
   backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 /* Duplicated Admin Interface Fix */
@@ -132,7 +147,7 @@ ak-flow-card {
   box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.5) !important;
 }
 
-/* Secondary (Blue): Cyber Blue Glow (FIXED: Now glows BLUE instead of white) */
+/* Secondary (Blue): Cyber Blue Glow */
 .pf-c-button.pf-m-secondary {
   background-color: rgba(0, 123, 255, 0.1) !important;
   border-color: #007bff !important;
@@ -140,7 +155,7 @@ ak-flow-card {
   backdrop-filter: blur(4px);
 }
 .pf-c-button.pf-m-secondary:hover {
-  border-color: #00fbff !important; /* Cyan-blue border on hover */
+  border-color: #00fbff !important;
   box-shadow: 0 0 18px 5px rgba(0, 123, 255, 0.8) !important;
 }
 
@@ -172,6 +187,8 @@ a,
   border: 2px solid #3a3a40 !important;
   background-color: rgba(0, 0, 0, 0.4) !important;
   color: white !important;
+  /* Stabilize text input rendering */
+  transform: translateZ(0);
 }
 
 /*** 5. Application Cards (Blue Glow) ***/
@@ -187,11 +204,12 @@ ak-application-card,
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: 0 0 12px rgba(128, 126, 130, 0.4) !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  transform: translateZ(0);
 }
 
 ak-application-card:hover,
 .pf-c-card.pf-m-compact:hover {
-  transform: scale(1.04) translateY(-5px) !important;
+  transform: scale(1.04) translateY(-5px) translateZ(0) !important;
   border-color: #007bff !important;
   box-shadow:
     0 10px 30px -5px rgba(0, 123, 255, 0.7),
