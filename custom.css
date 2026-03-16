@@ -88,6 +88,7 @@ ak-flow-card,
 
 .pf-c-button.pf-m-primary,
 .pf-c-button.pf-m-secondary,
+.pf-c-button.pf-m-warning,
 .pf-c-button.pf-m-danger,
 .pf-c-button.pf-m-link,
 .pf-c-button.pf-m-block {
@@ -125,10 +126,22 @@ ak-flow-card,
   display: flex !important;
 }
 
-.pf-c-button:hover {
+/* Hover effects (Disabled buttons should not scale) */
+.pf-c-button:hover:not(:disabled) {
   transform: scale(1.05) !important;
   opacity: 1 !important;
   z-index: 999 !important;
+}
+
+/* Base Disabled State */
+.pf-c-button:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.5 !important;
+  border-color: #444 !important;
+  background-color: rgba(50, 50, 50, 0.2) !important;
+  color: #888 !important;
+  box-shadow: none !important;
+  transform: none !important;
 }
 
 /* Primary */
@@ -137,7 +150,7 @@ ak-flow-card,
   color: white !important;
   border-color: #555 !important;
 }
-.pf-c-button.pf-m-primary:hover {
+.pf-c-button.pf-m-primary:hover:not(:disabled) {
   border-color: #ffffff !important;
   box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.5) !important;
 }
@@ -149,9 +162,20 @@ ak-flow-card,
   color: #ffffff !important;
   backdrop-filter: blur(4px);
 }
-.pf-c-button.pf-m-secondary:hover {
+.pf-c-button.pf-m-secondary:hover:not(:disabled) {
   border-color: #00fbff !important;
   box-shadow: 0 0 18px 5px rgba(0, 123, 255, 0.8) !important;
+}
+
+/* Warning */
+.pf-c-button.pf-m-warning {
+  background-color: rgba(240, 173, 78, 0.1) !important;
+  border-color: #f0ad4e !important;
+  color: #ffffff !important;
+}
+.pf-c-button.pf-m-warning:hover:not(:disabled) {
+  border-color: #ffc107 !important;
+  box-shadow: 0 0 18px 5px rgba(240, 173, 78, 0.6) !important;
 }
 
 /* Danger */
@@ -160,7 +184,7 @@ ak-flow-card,
   border-color: #a30000 !important;
   color: white !important;
 }
-.pf-c-button.pf-m-danger:hover {
+.pf-c-button.pf-m-danger:hover:not(:disabled) {
   border-color: #ff4d4d !important;
   box-shadow: 0 0 20px 5px rgba(163, 0, 0, 0.7) !important;
 }
@@ -223,7 +247,7 @@ ak-application-card:hover,
   }
 }
 
-/*** 7. ヘッダー＆アバターの調整 ***/
+/*** 7. Header & Avatar Adjustments ***/
 .pf-c-page__header-tools {
   display: flex !important;
   align-items: center !important;
@@ -253,21 +277,14 @@ ak-application-card:hover,
   object-fit: cover !important;
 }
 
-/*** 8. ダークモード用テキスト＆エラーメッセージ（アラート）の最適化 ***/
-/* 見出しやタイトルの白化 */
+/*** 8. Dark Mode Optimization ***/
 .pf-c-title,
 .pf-c-login__main-header-desc {
   color: #ffffff !important;
 }
 
-/* 権限エラーなどのアラートボックスを透過ダーク＆白文字化 */
 .pf-c-alert {
-  background-color: rgba(
-    20,
-    20,
-    20,
-    0.7
-  ) !important; /* 背景に溶け込む半透明の黒 */
+  background-color: rgba(20, 20, 20, 0.7) !important;
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   color: #ffffff !important;
@@ -276,16 +293,12 @@ ak-application-card:hover,
 .pf-c-alert__description {
   color: #ffffff !important;
 }
-
-/* 危険(Danger)エラーのアイコンと上部線は目立たせる */
 .pf-c-alert.pf-m-danger {
   border-top-color: #ff4d4d !important;
 }
 .pf-c-alert.pf-m-danger .pf-c-alert__icon {
   color: #ff4d4d !important;
 }
-
-/* 入力フォーム下の細かいエラーテキスト（暗い背景でも読める明るい赤） */
 .pf-c-form__helper-text.pf-m-error {
   color: #ff9999 !important;
 }
