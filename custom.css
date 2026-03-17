@@ -87,6 +87,7 @@ ak-flow-card,
   display: none !important;
 }
 
+/* Apply base structure to all button types including pf-m-link */
 .pf-c-button.pf-m-primary,
 .pf-c-button.pf-m-secondary,
 .pf-c-button.pf-m-warning,
@@ -106,7 +107,6 @@ ak-flow-card,
   min-width: 100px;
   border: 2px solid #807e82 !important;
   background-clip: padding-box;
-  /* Removed 'auto' to fix left-alignment in footers */
   margin: 12px 12px 12px 0 !important;
   backface-visibility: hidden;
   transform: translateZ(0);
@@ -135,7 +135,8 @@ ak-flow-card,
   transform: none !important;
 }
 
-/* Button Color Variants */
+/* --- Button Color Variants & Glow Effects --- */
+
 .pf-c-button.pf-m-primary {
   background-color: #3a3a40 !important;
   color: white !important;
@@ -175,6 +176,19 @@ ak-flow-card,
 .pf-c-button.pf-m-danger:hover:not(:disabled) {
   border-color: #ff4d4d !important;
   box-shadow: 0 0 20px 5px rgba(163, 0, 0, 0.7) !important;
+}
+
+/* FIX: Added missing link button variant (Cancel button) */
+.pf-c-button.pf-m-link {
+  background-color: transparent !important;
+  border-color: #666 !important;
+  color: #b7b7b7 !important;
+}
+.pf-c-button.pf-m-link:hover:not(:disabled) {
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.4) !important;
 }
 
 /*** 4. Navigation & Form Controls ***/
@@ -278,7 +292,7 @@ img.pf-c-avatar {
   box-shadow: inset 0 -10px 15px -10px rgba(0, 123, 255, 0.6) !important;
 }
 
-/*** 10. Modals & Footer Alignment ***/
+/*** 10. Modals & Wizard Footers ***/
 .pf-c-backdrop {
   z-index: 1000 !important;
   background-color: rgba(0, 0, 0, 0.7) !important;
@@ -291,47 +305,46 @@ img.pf-c-avatar {
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Force modal buttons to align to the left side */
-.pf-c-modal-box__footer {
+/* Left-align buttons for Modals and Wizard footers */
+.pf-c-modal-box__footer,
+.pf-c-wizard__footer {
   display: flex !important;
   justify-content: flex-start !important;
+  align-items: center !important;
   flex-wrap: wrap !important;
-  border-top: none !important;
-  padding-left: 24px !important;
+  border: none !important;
+  padding: 16px 24px !important;
+  background: transparent !important;
 }
 
-/*** 11. Select Box / Typeahead (Alignment & Glow Fix) ***/
+/* Fix for the extra wrapper div in Wizard abort buttons */
+.pf-c-wizard__footer-abort {
+  margin: 0 !important;
+  display: inline-flex !important;
+}
+
+/*** 11. Select Box Fix ***/
 .pf-c-select {
   border-radius: 20px !important;
   background-color: transparent !important;
   transition: box-shadow 0.2s ease-in-out !important;
-  display: block !important;
   width: 100% !important;
 }
-
 .pf-c-select:focus-within {
   box-shadow: 0 0 12px rgba(255, 255, 255, 0.6) !important;
 }
 
 .pf-c-select__toggle {
   border-radius: 20px !important;
-  background-color: transparent !important;
+  padding: 0 !important;
   border: none !important;
-  padding: 0 !important; /* Fixed left-padding gap */
-  display: flex !important;
-  align-items: center !important;
 }
-
 .pf-c-select__toggle::before {
   display: none !important;
 }
 
 .pf-c-select__toggle-wrapper {
   border-radius: 20px !important;
-  flex: 1 !important;
-  display: flex !important;
-  align-items: center !important;
-  width: 100% !important;
   padding-left: 0 !important;
   overflow: hidden !important;
 }
@@ -340,9 +353,7 @@ img.pf-c-avatar {
   border-radius: 20px !important;
   background-color: rgba(0, 0, 0, 0.4) !important;
   border: 2px solid #3a3a40 !important;
-  padding-left: 16px !important; /* Matches standard text input start */
-  width: 100% !important;
-  height: auto !important;
+  padding-left: 16px !important;
   color: white !important;
 }
 
