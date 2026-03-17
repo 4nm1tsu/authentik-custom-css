@@ -13,7 +13,7 @@
   --pf-global--Color--dark-200: #e0e0e0 !important;
 }
 
-/*** 1. Global Background (Mobile & Desktop) ***/
+/*** 1. Global Background & Layout ***/
 body,
 .pf-c-login {
   background-image: url("https://i.imgur.com/j38cKOQ.gif") !important;
@@ -28,7 +28,7 @@ body,
   --pf-c-background-image--Filter: none;
 }
 
-/*** 2. Artifact & Clipping Fix ***/
+/*** 2. Artifact & Clipping Fixes ***/
 ak-stage-identification,
 ak-flow-card,
 .pf-c-login__main-body,
@@ -57,6 +57,7 @@ ak-flow-card,
   transform: translateZ(0);
 }
 
+/* Glass-morphism pulse effect for the login container */
 .pf-c-login__main::before {
   content: "";
   position: absolute;
@@ -105,24 +106,17 @@ ak-flow-card,
   min-width: 100px;
   border: 2px solid #807e82 !important;
   background-clip: padding-box;
-  margin: 12px auto !important;
+  /* Removed 'auto' to fix left-alignment in footers */
+  margin: 12px 12px 12px 0 !important;
   backface-visibility: hidden;
   transform: translateZ(0);
 }
 
-.pf-u-display-none,
-.pf-u-display-none-on-md,
-.pf-u-display-none-on-lg {
-  display: none !important;
-}
-@media (min-width: 768px) {
-  .pf-u-display-block:not(.pf-u-display-block-on-md) {
-    display: none !important;
-  }
-}
-
+/* Maintain centered layout specifically for the Login screen */
 .pf-c-login__main .pf-c-button {
   width: 70% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
   display: flex !important;
 }
 
@@ -141,6 +135,7 @@ ak-flow-card,
   transform: none !important;
 }
 
+/* Button Color Variants */
 .pf-c-button.pf-m-primary {
   background-color: #3a3a40 !important;
   color: white !important;
@@ -182,7 +177,7 @@ ak-flow-card,
   box-shadow: 0 0 20px 5px rgba(163, 0, 0, 0.7) !important;
 }
 
-/*** 4. Navigation & UI Elements ***/
+/*** 4. Navigation & Form Controls ***/
 .pf-c-nav__list .pf-c-nav__item .pf-c-nav__link.pf-m-current,
 .pf-c-nav__link[aria-current="page"] {
   color: #ffffff !important;
@@ -200,9 +195,16 @@ a,
   background-color: rgba(0, 0, 0, 0.4) !important;
   color: white !important;
   transform: translateZ(0);
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s !important;
+}
+.pf-c-form-control:focus {
+  border-color: #ffffff !important;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6) !important;
 }
 
-/*** 5. Application Cards ***/
+/*** 5. Application Cards (Grid View) ***/
 ak-application-card,
 .pf-c-card.pf-m-compact {
   border-radius: 20px !important;
@@ -219,17 +221,7 @@ ak-application-card,
   overflow: visible !important;
 }
 
-ak-application-card:hover,
-.pf-c-card.pf-m-compact:hover {
-  transform: scale(1.04) translateY(-5px) translateZ(0) !important;
-  border-color: #007bff !important;
-  box-shadow:
-    0 10px 30px -5px rgba(0, 123, 255, 0.7),
-    0 0 15px rgba(0, 123, 255, 0.4) !important;
-  z-index: 10;
-}
-
-/*** 6. Mobile ***/
+/*** 6. Mobile Optimization ***/
 @media (max-width: 991px) {
   .pf-c-login__main {
     width: 92% !important;
@@ -240,7 +232,7 @@ ak-application-card:hover,
   }
 }
 
-/*** 7. Header & Avatar Fix (確保して再表示) ***/
+/*** 7. Header & User Avatar Stability ***/
 .pf-c-page__header-tools {
   display: flex !important;
   align-items: center !important;
@@ -264,7 +256,7 @@ img.pf-c-avatar {
   object-fit: cover !important;
 }
 
-/*** 8. Dark Mode Optimization ***/
+/*** 8. Alerts & Validation Messaging ***/
 .pf-c-title,
 .pf-c-login__main-header-desc {
   color: #ffffff !important;
@@ -275,35 +267,8 @@ img.pf-c-avatar {
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   color: #ffffff !important;
 }
-.pf-c-alert__title,
-.pf-c-alert__description {
-  color: #ffffff !important;
-}
-.pf-c-alert.pf-m-danger {
-  border-top-color: #ff4d4d !important;
-}
-.pf-c-alert.pf-m-danger .pf-c-alert__icon {
-  color: #ff4d4d !important;
-}
-.pf-c-form__helper-text.pf-m-error {
-  color: #ff9999 !important;
-}
 
-/*** 9. Tabs Styling (Blue Light Effect) ***/
-.pf-c-tabs__list {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-}
-.pf-c-tabs__link {
-  color: #b7b7b7 !important;
-  background: transparent !important;
-  border-bottom-width: 3px !important;
-  border-bottom-color: transparent !important;
-  transition: all 0.3s ease !important;
-}
-.pf-c-tabs__link:hover {
-  color: #ffffff !important;
-  border-bottom-color: rgba(0, 123, 255, 0.5) !important;
-}
+/*** 9. Horizontal Tabs (Blue Glow Effect) ***/
 .pf-c-tabs__link[aria-selected="true"],
 .pf-c-tabs__item.pf-m-current .pf-c-tabs__link {
   color: #ffffff !important;
@@ -312,11 +277,8 @@ img.pf-c-avatar {
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
   box-shadow: inset 0 -10px 15px -10px rgba(0, 123, 255, 0.6) !important;
 }
-.pf-c-tabs__link[aria-selected="true"] .pf-c-tabs__item-text {
-  font-weight: bold !important;
-}
 
-/*** 10. Modal & Backdrop Fix ***/
+/*** 10. Modals & Footer Alignment ***/
 .pf-c-backdrop {
   z-index: 1000 !important;
   background-color: rgba(0, 0, 0, 0.7) !important;
@@ -327,5 +289,65 @@ img.pf-c-avatar {
   background-color: rgba(30, 30, 30, 0.9) !important;
   border-radius: 20px !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Force modal buttons to align to the left side */
+.pf-c-modal-box__footer {
+  display: flex !important;
+  justify-content: flex-start !important;
+  flex-wrap: wrap !important;
+  border-top: none !important;
+  padding-left: 24px !important;
+}
+
+/*** 11. Select Box / Typeahead (Alignment & Glow Fix) ***/
+.pf-c-select {
+  border-radius: 20px !important;
+  background-color: transparent !important;
+  transition: box-shadow 0.2s ease-in-out !important;
+  display: block !important;
+  width: 100% !important;
+}
+
+.pf-c-select:focus-within {
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6) !important;
+}
+
+.pf-c-select__toggle {
+  border-radius: 20px !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0 !important; /* Fixed left-padding gap */
+  display: flex !important;
+  align-items: center !important;
+}
+
+.pf-c-select__toggle::before {
+  display: none !important;
+}
+
+.pf-c-select__toggle-wrapper {
+  border-radius: 20px !important;
+  flex: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  padding-left: 0 !important;
+  overflow: hidden !important;
+}
+
+.pf-c-select__toggle-typeahead {
+  border-radius: 20px !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  border: 2px solid #3a3a40 !important;
+  padding-left: 16px !important; /* Matches standard text input start */
+  width: 100% !important;
+  height: auto !important;
+  color: white !important;
+}
+
+.pf-c-select__toggle-typeahead:focus {
+  border-color: #ffffff !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
