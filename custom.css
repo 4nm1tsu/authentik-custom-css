@@ -57,7 +57,6 @@ ak-flow-card,
   transform: translateZ(0);
 }
 
-/* Glass-morphism pulse effect for the login container */
 .pf-c-login__main::before {
   content: "";
   position: absolute;
@@ -82,18 +81,16 @@ ak-flow-card,
   }
 }
 
-/*** 3. Unified Button Styles ***/
+/*** 3. Unified Button Styles & Glow Effects ***/
 .pf-c-button::after {
   display: none !important;
 }
 
-/* Apply base structure to all button types including pf-m-link */
 .pf-c-button.pf-m-primary,
 .pf-c-button.pf-m-secondary,
 .pf-c-button.pf-m-warning,
 .pf-c-button.pf-m-danger,
-.pf-c-button.pf-m-link,
-.pf-c-button.pf-m-block {
+.pf-c-button.pf-m-link {
   border-radius: 20px !important;
   white-space: nowrap !important;
   word-break: keep-all !important;
@@ -103,8 +100,9 @@ ak-flow-card,
   align-items: center;
   font-size: 14px;
   font-weight: 500;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   min-width: 100px;
+  height: auto !important;
   border: 2px solid #807e82 !important;
   background-clip: padding-box;
   margin: 12px 12px 12px 0 !important;
@@ -112,7 +110,32 @@ ak-flow-card,
   transform: translateZ(0);
 }
 
-/* Maintain centered layout specifically for the Login screen */
+/* --- DISABLED STATE FIX --- */
+.pf-c-button:disabled,
+.pf-c-button.pf-m-disabled {
+  cursor: not-allowed !important;
+  background-color: rgba(60, 60, 60, 0.4) !important; /* 暗めのグレー透過 */
+  border-color: #444444 !important;
+  color: #777777 !important; /* テキストをグレーダウン */
+  box-shadow: none !important;
+  transform: none !important;
+  filter: grayscale(1) !important; /* 色味を完全に消す */
+  opacity: 0.6 !important;
+}
+
+/* Responsive utilities */
+.pf-c-button.pf-u-display-none,
+.pf-c-button.pf-u-display-none-on-md {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .pf-c-button.pf-u-display-block-on-md {
+    display: inline-flex !important;
+  }
+}
+
+/* Login screen centering */
 .pf-c-login__main .pf-c-button {
   width: 70% !important;
   margin-left: auto !important;
@@ -120,105 +143,96 @@ ak-flow-card,
   display: flex !important;
 }
 
-.pf-c-button:hover:not(:disabled) {
-  transform: scale(1.05) !important;
-  opacity: 1 !important;
-}
-
-.pf-c-button:disabled {
-  cursor: not-allowed !important;
-  opacity: 0.5 !important;
-  border-color: #444 !important;
-  background-color: rgba(50, 50, 50, 0.2) !important;
-  color: #888 !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
-
-/* --- Button Color Variants & Glow Effects --- */
-
-.pf-c-button.pf-m-primary {
+/* --- BUTTON COLOR VARIANTS (GLOWS) --- */
+.pf-c-button.pf-m-primary:not(:disabled) {
   background-color: #3a3a40 !important;
   color: white !important;
   border-color: #555 !important;
 }
 .pf-c-button.pf-m-primary:hover:not(:disabled) {
+  transform: scale(1.05) !important;
   border-color: #ffffff !important;
   box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.5) !important;
 }
 
-.pf-c-button.pf-m-secondary {
+.pf-c-button.pf-m-secondary:not(:disabled) {
   background-color: rgba(0, 123, 255, 0.1) !important;
   border-color: #007bff !important;
   color: #ffffff !important;
-  backdrop-filter: blur(4px);
 }
 .pf-c-button.pf-m-secondary:hover:not(:disabled) {
+  transform: scale(1.05) !important;
   border-color: #00fbff !important;
   box-shadow: 0 0 18px 5px rgba(0, 123, 255, 0.8) !important;
 }
 
-.pf-c-button.pf-m-warning {
-  background-color: rgba(240, 173, 78, 0.1) !important;
-  border-color: #f0ad4e !important;
-  color: #ffffff !important;
-}
-.pf-c-button.pf-m-warning:hover:not(:disabled) {
-  border-color: #ffc107 !important;
-  box-shadow: 0 0 18px 5px rgba(240, 173, 78, 0.6) !important;
-}
-
-.pf-c-button.pf-m-danger {
+.pf-c-button.pf-m-danger:not(:disabled) {
   background-color: rgba(163, 0, 0, 0.2) !important;
   border-color: #a30000 !important;
   color: white !important;
 }
 .pf-c-button.pf-m-danger:hover:not(:disabled) {
+  transform: scale(1.05) !important;
   border-color: #ff4d4d !important;
-  box-shadow: 0 0 20px 5px rgba(163, 0, 0, 0.7) !important;
+  box-shadow: 0 0 25px 8px rgba(163, 0, 0, 0.8) !important;
 }
 
-/* FIX: Added missing link button variant (Cancel button) */
-.pf-c-button.pf-m-link {
+.pf-c-button.pf-m-link:not(:disabled) {
   background-color: transparent !important;
   border-color: #666 !important;
   color: #b7b7b7 !important;
 }
 .pf-c-button.pf-m-link:hover:not(:disabled) {
+  transform: scale(1.05) !important;
   border-color: #ffffff !important;
   color: #ffffff !important;
-  background-color: rgba(255, 255, 255, 0.1) !important;
   box-shadow: 0 0 15px 3px rgba(255, 255, 255, 0.4) !important;
 }
 
-/*** 4. Navigation & Form Controls ***/
-.pf-c-nav__list .pf-c-nav__item .pf-c-nav__link.pf-m-current,
+/*** 4. Header & User Avatar Stability ***/
+.pf-c-page__header-tools {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px;
+}
+.pf-c-avatar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+.pf-c-avatar img,
+img.pf-c-avatar {
+  border-radius: 50% !important;
+  border: 2px solid rgba(255, 255, 255, 0.5) !important;
+  width: 36px !important;
+  height: 36px !important;
+  object-fit: cover !important;
+  margin: 0 !important;
+}
+
+/*** 5. Navigation & Form Controls ***/
+.pf-c-nav__link.pf-m-current,
 .pf-c-nav__link[aria-current="page"] {
   color: #ffffff !important;
   background-color: rgba(255, 255, 255, 0.2) !important;
-  font-weight: bold !important;
 }
 a,
 .pf-c-nav__link,
 .pf-c-form__label-text {
   color: #b7b7b7 !important;
 }
+
 .pf-c-form-control {
   border-radius: 20px !important;
   border: 2px solid #3a3a40 !important;
   background-color: rgba(0, 0, 0, 0.4) !important;
   color: white !important;
-  transform: translateZ(0);
-  transition:
-    border-color 0.2s,
-    box-shadow 0.2s !important;
-}
-.pf-c-form-control:focus {
-  border-color: #ffffff !important;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6) !important;
 }
 
-/*** 5. Application Cards (Grid View) ***/
+/*** 6. Application Cards ***/
 ak-application-card,
 .pf-c-card.pf-m-compact {
   border-radius: 20px !important;
@@ -230,82 +244,31 @@ ak-application-card,
   backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: 0 0 12px rgba(128, 126, 130, 0.4) !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  transform: translateZ(0);
-  overflow: visible !important;
+  transition: all 0.3s ease !important;
+}
+ak-application-card:hover,
+.pf-c-card.pf-m-compact:hover {
+  transform: translateY(-5px) scale(1.02) !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.25) !important;
 }
 
-/*** 6. Mobile Optimization ***/
-@media (max-width: 991px) {
-  .pf-c-login__main {
-    width: 92% !important;
-    margin: 20px auto !important;
-  }
-  .pf-c-login__main .pf-c-button {
-    width: 80% !important;
-  }
-}
-
-/*** 7. Header & User Avatar Stability ***/
-.pf-c-page__header-tools {
-  display: flex !important;
-  align-items: center !important;
-}
-.pf-c-avatar,
-.pf-c-page__header-tools-item.pf-c-avatar,
-.pf-c-dropdown.pf-m-user .pf-c-dropdown__toggle {
-  display: flex !important;
-  align-items: center !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-.pf-c-avatar img,
-img.pf-c-avatar {
-  display: inline-block !important;
-  border-radius: 50% !important;
-  border: 1px solid rgba(255, 255, 255, 0.5) !important;
-  width: 36px !important;
-  height: 36px !important;
-  min-width: 36px !important;
-  object-fit: cover !important;
-}
-
-/*** 8. Alerts & Validation Messaging ***/
-.pf-c-title,
-.pf-c-login__main-header-desc {
-  color: #ffffff !important;
-}
-.pf-c-alert {
-  background-color: rgba(20, 20, 20, 0.7) !important;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  color: #ffffff !important;
-}
-
-/*** 9. Horizontal Tabs (Blue Glow Effect) ***/
+/*** 7. Horizontal Tabs ***/
 .pf-c-tabs__link[aria-selected="true"],
 .pf-c-tabs__item.pf-m-current .pf-c-tabs__link {
   color: #ffffff !important;
   border-bottom-color: #007bff !important;
   border-bottom-width: 3px !important;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-  box-shadow: inset 0 -10px 15px -10px rgba(0, 123, 255, 0.6) !important;
+  text-shadow: 0 0 10px rgba(0, 123, 255, 0.8) !important;
+  box-shadow: inset 0 -15px 20px -10px rgba(0, 123, 255, 0.7) !important;
 }
 
-/*** 10. Modals & Wizard Footers ***/
-.pf-c-backdrop {
-  z-index: 1000 !important;
-  background-color: rgba(0, 0, 0, 0.7) !important;
-  backdrop-filter: blur(4px);
-}
+/*** 8. Modals & Wizard Footers ***/
 .pf-c-modal-box {
-  z-index: 1001 !important;
   background-color: rgba(30, 30, 30, 0.9) !important;
   border-radius: 20px !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Left-align buttons for Modals and Wizard footers */
 .pf-c-modal-box__footer,
 .pf-c-wizard__footer {
   display: flex !important;
@@ -313,52 +276,24 @@ img.pf-c-avatar {
   align-items: center !important;
   flex-wrap: wrap !important;
   border: none !important;
-  padding: 16px 24px !important;
   background: transparent !important;
+  padding: 16px 24px !important;
 }
 
-/* Fix for the extra wrapper div in Wizard abort buttons */
 .pf-c-wizard__footer-abort {
-  margin: 0 !important;
-  display: inline-flex !important;
+  display: contents !important;
 }
 
-/*** 11. Select Box Fix ***/
-.pf-c-select {
-  border-radius: 20px !important;
-  background-color: transparent !important;
-  transition: box-shadow 0.2s ease-in-out !important;
-  width: 100% !important;
-}
-.pf-c-select:focus-within {
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.6) !important;
+.pf-c-wizard__footer .pf-c-button,
+.pf-c-modal-box__footer .pf-c-button {
+  margin-right: 12px !important;
+  flex: 0 0 auto !important;
 }
 
-.pf-c-select__toggle {
-  border-radius: 20px !important;
-  padding: 0 !important;
-  border: none !important;
-}
-.pf-c-select__toggle::before {
-  display: none !important;
-}
-
-.pf-c-select__toggle-wrapper {
-  border-radius: 20px !important;
-  padding-left: 0 !important;
-  overflow: hidden !important;
-}
-
+/*** 9. Select Box Fix ***/
 .pf-c-select__toggle-typeahead {
   border-radius: 20px !important;
   background-color: rgba(0, 0, 0, 0.4) !important;
   border: 2px solid #3a3a40 !important;
-  padding-left: 16px !important;
   color: white !important;
-}
-
-.pf-c-select__toggle-typeahead:focus {
-  border-color: #ffffff !important;
-  box-shadow: none !important;
-  outline: none !important;
 }
